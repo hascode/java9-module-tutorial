@@ -1,50 +1,56 @@
 # JAVA 9 Module Tutorial
 
-**Compile**
+Playing around with the Java 9 module system.
+
+## Compile Modules
 
 ```bash
-
+mkdir -p mods
 javac -d mods --module-source-path src $(find src -name "*.java")
-
 ```
 
-**Run**
-
+## Running the Sample
 ```bash
-
-java --module-path mods -m com.hascode.datetool/com.hascode.datetool.Main
-
+java --module-path mods -m com.hascode.sample/com.hascode.sample.Main
 ```
 
-**Create Jar**
+## Creating Module Jars
 
 ```bash
+jar --create --file=mlib/com.hascode.datetool@1.0.jar -C mods/com.hascode.datetool .
+jar --create --file=mlib/com.hascode.sample@1.0.jar --main-class=com.hascode.sample.Main -C mods/com.hascode.sample .
+```
+## Running Sample from Jar
 
-jar --create --file=mlib/com.hascode.datetool@1.0.jar --main-class=com.hascode.datetool.Main -C mods/com.hascode.datetool .
-
+```bash
+java -p mlib -m com.hascode.sample
 ```
 
-**Run from Jar**
+## Displaying Module Information
 
 ```bash
-
-java -p mlib -m com.hascode.datetool
-
-```
-
-**Display Module Declaration**
-
-```bash
-
-jar -d --file=mlib/com.hascode.datetool@1.0.jar                                                                                                                                                                                                                        1 ↵
+jar -d --file=mlib/com.hascode.datetool@1.0.jar
 
 module com.hascode.datetool (module-info.class)
   requires mandated java.base
-  contains com.hascode.datetool
-  main-class com.hascode.datetool.Main
-
+  exports com.hascode.datetool.api
+  contains com.hascode.datetool.internal
 ```
+
+```bash
+jar -d --file=mlib/com.hascode.sample@1.0.jar  
+
+module com.hascode.sample (module-info.class)
+  requires com.hascode.datetool
+  requires mandated java.base
+  contains com.hascode.sample
+  main-class com.hascode.sample.Main
+```
+Please feel free to visit my blog at [www.hascode.com] for further tutorials and information.
 
 ------
 
 **2017 Micha Kops / hasCode.com**
+
+   [www.hascode.com]:http://www.hascode.com/
+
