@@ -46,6 +46,13 @@ module com.hascode.sample (module-info.class)
   contains com.hascode.sample
   main-class com.hascode.sample.Main
 ```
+
+## Linking Modules
+
+```bash
+jlink --module-path $JAVA_HOME/jmods:mlib --add-modules com.hascode.sample --output sampleapp
+```
+
 Please feel free to visit my blog at [www.hascode.com] for further tutorials and information.
 
 ------
