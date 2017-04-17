@@ -47,7 +47,7 @@ module com.hascode.sample (module-info.class)
   main-class com.hascode.sample.Main
 ```
 
-## Linking Modules
+## Creating Modular Run-Time
 
 ```bash
 jlink --module-path $JAVA_HOME/jmods:mlib --add-modules com.hascode.sample --output sampleapp
